@@ -4,7 +4,6 @@ Unit tests for integration of the django-user-tasks app and its REST API.
 
 
 import logging
-import unittest
 from uuid import uuid4
 
 import mock
@@ -12,8 +11,8 @@ from boto.exception import NoAuthHandlerFound
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.core import mail
-from django.test import override_settings
 from django.urls import reverse
+from django.test import override_settings
 from rest_framework.test import APITestCase
 from user_tasks.models import UserTaskArtifact, UserTaskStatus
 from user_tasks.serializers import ArtifactSerializer, StatusSerializer
@@ -63,7 +62,7 @@ def _data(response):
     return response.data
 
 
-@override_settings(BROKER_URL='memory://localhost/', BROKER_BACKEND='memory')
+@override_settings(BROKER_URL='memory://localhost/')
 class TestUserTasks(APITestCase):
     """
     Tests of the django-user-tasks REST API endpoints.
@@ -103,7 +102,6 @@ class TestUserTasks(APITestCase):
         serializer = ArtifactSerializer(self.artifact, context=_context(response))
         assert _data(response)['results'] == [serializer.data]
 
-    @unittest.skip("Due to this test build never get green. Workers stuck without any failure.")
     def test_status_cancel(self):
         """
         Users should be able to cancel tasks they no longer wish to complete.
@@ -140,7 +138,7 @@ class TestUserTasks(APITestCase):
         assert _data(response)['results'] == serializer.data
 
 
-@override_settings(BROKER_URL='memory://localhost/', BROKER_BACKEND='memory')
+@override_settings(BROKER_URL='memory://localhost/')
 class TestUserTaskStopped(APITestCase):
     """
     Tests of the django-user-tasks signal handling and email integration.
