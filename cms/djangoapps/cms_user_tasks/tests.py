@@ -103,7 +103,7 @@ class TestUserTasks(APITestCase):
         serializer = ArtifactSerializer(self.artifact, context=_context(response))
         assert _data(response)['results'] == [serializer.data]
 
-    @unittest.skip("Due to this test build never get green.")
+    @unittest.skip("Due to this test build never get green. Workers stuck without any failure.")
     def test_status_cancel(self):
         """
         Users should be able to cancel tasks they no longer wish to complete.
