@@ -62,7 +62,7 @@ def _data(response):
     return response.data
 
 
-@override_settings(BROKER_URL='memory://localhost/',  BROKER_BACKEND='memory')
+@override_settings(BROKER_URL='memory://localhost/', BROKER_BACKEND='memory')
 class TestUserTasks(APITestCase):
     """
     Tests of the django-user-tasks REST API endpoints.
